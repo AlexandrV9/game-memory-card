@@ -2,6 +2,12 @@
   box-sizing: border-box;
 }
 
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 body {
   background: #d0e0e6;
   min-height: 100vh;
@@ -12,7 +18,7 @@ body {
 
 .cards {
   display: grid;
-  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  grid-template: repeat(3, 1fr) / repeat(4, 1fr);
   gap: 10px;
 }
 
@@ -65,7 +71,26 @@ body {
   transition: 0.3s ease all;
 }
 
-.card .back:hover {
+.card .back:hover,
+.button-start-over:hover {
   background: #dba8b1;
   transform: scale(1.02);
+}
+
+.button-start-over {
+  cursor: pointer;
+  margin-top: 15px;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 10px;
+  color: black;
+  border-radius: 10px;
+  border: 1px solid black;
+  background: #eabd55;
+  transition: 0.3s ease all;
+}
+
+.number-of-strokes {
+  font-size: 20px;
+  font-weight: bold;
 }

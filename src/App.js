@@ -6,6 +6,7 @@ import pathIconCake from './icon/icon-car.png';
 import pathIconTeapot from './icon/icon-cat.png';
 import pathIconDog from './icon/icon-dog.png';
 import pathIconCat from './icon/icon-teapot.png';
+import pathIconLamp from './icon/icon-lamp.png';
 
 import pathIconQuestion from './icon/icon-question.png';
 
@@ -14,13 +15,15 @@ export default function App() {
   const [arrayCards, setArrayCards] = useState([]);
   const [openedCard, setOpenedCard] = useState([]);
   const [matched, setMatched] = useState([]);
+  const [moves, setMoves] = useState(0);
 
   const initialArrayCards = [
     { id: 1, img: pathIconCar },
     { id: 2, img: pathIconCake },
     { id: 3, img: pathIconTeapot },
     { id: 4, img: pathIconDog },
-    { id: 5, img: pathIconCat }
+    { id: 5, img: pathIconCat },
+    { id: 6, img: pathIconLamp }
   ];
 
   const pairOfArrayCards = [...initialArrayCards, ...initialArrayCards];
@@ -46,8 +49,16 @@ export default function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function flipCard(index) {
+  const flipCard = (index) => {
     setOpenedCard((opened) => [...opened, index]);
+    setMoves((preventValue) => preventValue+1);
+  }
+
+  const clickButoonStartOver = () => {
+    setOpenedCard([]);
+    setMatched([]);
+    setMoves(0);
+    setArrayCards(shuffle(pairOfArrayCards));
   }
 
   useEffect(() => {
@@ -66,6 +77,7 @@ export default function App() {
 
   return (
     <div className="App">
+      <p className="number-of-strokes">{`Сделано ходов: ${moves}`} </p>
       <div className="cards">
         {arrayCards.map((item, index) => {
 
@@ -75,6 +87,7 @@ export default function App() {
           if (matched.includes(item.id)) isFlipped = true;
           
           return (
+            <>
             <div
               className={`card ${isFlipped ? "flipped" : ""} `}
               key={index}
@@ -93,9 +106,11 @@ export default function App() {
                 </div>
               </div>
             </div>
+            </>
           );
         })}
       </div>
+      <button className="button-start-over" onClick={clickButoonStartOver}>Начать заново</button>
     </div>
   );
 }
